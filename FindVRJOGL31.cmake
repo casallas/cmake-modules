@@ -1,4 +1,4 @@
-# - try to find VRJuggler 3.0 OpenGL library
+# - try to find VRJuggler 3.1 OpenGL library
 # Requires VRJ core 3.1 (thus FindVRJ31.cmake)
 # Requires OpenGL.
 # Optionally uses Flagpoll and FindFlagpoll.cmake
@@ -7,16 +7,16 @@
 # find_package(VRJuggler31) instead, for an easy interface to this and
 # related scripts.  See FindVRJuggler31.cmake for more information.
 #
-#  VRJOGL30_LIBRARY_DIR, library search path
-#  VRJOGL30_INCLUDE_DIRS, include search path for dependencies
-#  VRJOGL30_LIBRARY, the library to link against
-#  VRJOGL30_FOUND, If false, do not try to use this library.
+#  VRJOGL31_LIBRARY_DIR, library search path
+#  VRJOGL31_INCLUDE_DIRS, include search path for dependencies
+#  VRJOGL31_LIBRARY, the library to link against
+#  VRJOGL31_FOUND, If false, do not try to use this library.
 #
 # Plural versions refer to this library and its dependencies, and
 # are recommended to be used instead, unless you have a good reason.
 #
 # Useful configuration variables you might want to add to your cache:
-#  VRJOGL30_ROOT_DIR - A directory prefix to search
+#  VRJOGL31_ROOT_DIR - A directory prefix to search
 #                      (a path that contains include/ as a subdirectory)
 #
 # This script will use Flagpoll, if found, to provide hints to the location
@@ -64,8 +64,8 @@ if(FLAGPOLL)
 	flagpoll_get_library_names(${_FP_PKG_NAME} NO_DEPS)
 endif()
 
-set(VRJOGL30_ROOT_DIR
-	"${VRJOGL30_ROOT_DIR}"
+set(VRJOGL31_ROOT_DIR
+	"${VRJOGL31_ROOT_DIR}"
 	CACHE
 	PATH
 	"Root directory to search for VRJOGL")
@@ -103,8 +103,8 @@ find_library(VRJOGL31_LIBRARY_DEBUG
 select_library_configurations(VRJOGL31)
 
 # Dependency
-if(NOT VRJ30_FOUND)
-	find_package(VRJ30 ${_FIND_FLAGS})
+if(NOT VRJ31_FOUND)
+	find_package(VRJ31 ${_FIND_FLAGS})
 endif()
 
 if(NOT OPENGL_FOUND)
@@ -112,49 +112,49 @@ if(NOT OPENGL_FOUND)
 endif()
 
 if(APPLE)
-	set(VRJOGL30_AppKit_LIBRARY
+	set(VRJOGL31_AppKit_LIBRARY
 		"-framework AppKit"
 		CACHE
 		STRING
 		"AppKit framework for OSX")
-	set(VRJOGL30_Cocoa_LIBRARY
+	set(VRJOGL31_Cocoa_LIBRARY
 		"-framework Cocoa"
 		CACHE
 		STRING
 		"Cocoa framework for OSX")
-	mark_as_advanced(VRJOGL30_AppKit_LIBRARY VRJOGL30_Cocoa_LIBRARY)
+	mark_as_advanced(VRJOGL31_AppKit_LIBRARY VRJOGL31_Cocoa_LIBRARY)
 endif()
 
 # handle the QUIETLY and REQUIRED arguments and set xxx_FOUND to TRUE if
 # all listed variables are TRUE
 include(FindPackageHandleStandardArgs)
-find_package_handle_standard_args(VRJOGL30
+find_package_handle_standard_args(VRJOGL31
 	DEFAULT_MSG
-	VRJOGL30_LIBRARY
-	VRJ30_FOUND
-	VRJ30_LIBRARIES
-	VRJ30_INCLUDE_DIRS
+	VRJOGL31_LIBRARY
+	VRJ31_FOUND
+	VRJ31_LIBRARIES
+	VRJ31_INCLUDE_DIRS
 	OPENGL_FOUND
 	OPENGL_LIBRARIES)
 
-if(VRJOGL30_FOUND)
-	set(_DEPS ${VRJ30_LIBRARIES} ${OPENGL_LIBRARIES})
+if(VRJOGL31_FOUND)
+	set(_DEPS ${VRJ31_LIBRARIES} ${OPENGL_LIBRARIES})
 	if(APPLE)
 		list(APPEND
 			_DEPS
-			${VRJOGL30_AppKit_LIBRARY}
-			${VRJOGL30_Cocoa_LIBRARY})
+			${VRJOGL31_AppKit_LIBRARY}
+			${VRJOGL31_Cocoa_LIBRARY})
 	endif()
 
-	set(VRJOGL30_INCLUDE_DIRS ${VRJ30_INCLUDE_DIRS} ${OPENGL_INCLUDE_DIRS})
+	set(VRJOGL31_INCLUDE_DIRS ${VRJ31_INCLUDE_DIRS} ${OPENGL_INCLUDE_DIRS})
 
-	if(VRJUGGLER30_CREATE_IMPORTED_TARGETS)
-		create_imported_target(VRJOGL30 ${_DEPS})
+	if(VRJUGGLER31_CREATE_IMPORTED_TARGETS)
+		create_imported_target(VRJOGL31 ${_DEPS})
 	else()
-		clean_library_list(VRJOGL30_LIBRARIES ${_DEPS})
+		clean_library_list(VRJOGL31_LIBRARIES ${_DEPS})
 	endif()
 
-	mark_as_advanced(VRJOGL30_ROOT_DIR)
+	mark_as_advanced(VRJOGL31_ROOT_DIR)
 endif()
 
-mark_as_advanced(VRJOGL30_LIBRARY_RELEASE VRJOGL30_LIBRARY_DEBUG)
+mark_as_advanced(VRJOGL31_LIBRARY_RELEASE VRJOGL31_LIBRARY_DEBUG)
