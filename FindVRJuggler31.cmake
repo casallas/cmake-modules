@@ -6,7 +6,7 @@
 #  VRJUGGLER31_RUNTIME_LIBRARY_DIRS
 #  VRJUGGLER31_CXX_FLAGS
 #  VRJUGGLER31_DEFINITIONS
-#  VRJUGGLER31_FOUND, If false, do not try to use VR Juggler 3.0.
+#  VRJUGGLER31_FOUND, If false, do not try to use VR Juggler 3.1.
 #
 # Components available to search for (uses "VRJOGL31" by default):
 #  VRJOGL31
@@ -158,7 +158,7 @@ if(NOT VRJUGGLER31_FIND_QUIETLY
 	AND NOT VRJUGGLER31_FOUND
 	AND NOT "${_VRJUGGLER31_SEARCH_COMPONENTS}"	STREQUAL "${VRJUGGLER31_REQUESTED_COMPONENTS}")
 	message(STATUS
-		"Searching for these requested VR Juggler 3.0 components and their dependencies: ${VRJUGGLER31_REQUESTED_COMPONENTS}")
+		"Searching for these requested VR Juggler 3.1 components and their dependencies: ${VRJUGGLER31_REQUESTED_COMPONENTS}")
 endif()
 
 # Find components
@@ -252,7 +252,7 @@ if(VRJUGGLER31_FOUND)
 		find_path(VRJUGGLER31_VJ_CFG_DIR
 			standalone.jconf
 			PATHS
-			${VRJUGGLER31_VJ_BASE_DIR}/share/vrjuggler-3.0/data/configFiles
+			${VRJUGGLER31_VJ_BASE_DIR}/share/vrjuggler-3.1/data/configFiles
 			${VRJUGGLER31_VJ_BASE_DIR}/share/vrjuggler/data/configFiles
 			NO_DEFAULT_PATH)
 		mark_as_advanced(VRJUGGLER31_VJ_CFG_DIR)
@@ -321,34 +321,34 @@ if(VRJUGGLER31_FOUND)
 				_plugin_dirs
 				"${_libdir}/gadgeteer/drivers"
 				"${_libdir}/gadgeteer/plugins")
-		elseif(EXISTS "${_libdir}/gadgeteer-1.4")
+		elseif(EXISTS "${_libdir}/gadgeteer-2.1")
 			list(APPEND
 				_plugin_dirs
-				"${_libdir}/gadgeteer-1.4/drivers"
-				"${_libdir}/gadgeteer-1.4/plugins")
+				"${_libdir}/gadgeteer-2.1/drivers"
+				"${_libdir}/gadgeteer-2.1/plugins")
 		endif()
 
 		# Find directories of Sonix plugins
 		if(EXISTS "${_libdir}/sonix")
 			list(APPEND _plugin_dirs "${_libdir}/sonix/plugins/dbg")
 			list(APPEND _plugin_dirs "${_libdir}/sonix/plugins/opt")
-		elseif(EXISTS "${_libdir}/sonix-1.4")
-			list(APPEND _plugin_dirs "${_libdir}/sonix-1.4/plugins/dbg")
-			list(APPEND _plugin_dirs "${_libdir}/sonix-1.4/plugins/opt")
+		elseif(EXISTS "${_libdir}/sonix-1.5")
+			list(APPEND _plugin_dirs "${_libdir}/sonix-1.5/plugins/dbg")
+			list(APPEND _plugin_dirs "${_libdir}/sonix-1.5/plugins/opt")
 		endif()
 
 		# Find directories of JCCL plugins
 		if(EXISTS "${_libdir}/jccl/plugins")
 			list(APPEND _plugin_dirs "${_libdir}/jccl/plugins")
-		elseif(EXISTS "${_libdir}/jccl-1.4/plugins")
-			list(APPEND _plugin_dirs "${_libdir}/jccl-1.4/plugins")
+		elseif(EXISTS "${_libdir}/jccl-1.5/plugins")
+			list(APPEND _plugin_dirs "${_libdir}/jccl-1.5/plugins")
 		endif()
 
 		# Find directories of VR Juggler plugins
 		if(EXISTS "${_libdir}/vrjuggler/plugins")
 			list(APPEND _plugin_dirs "${_libdir}/vrjuggler/plugins")
-		elseif(EXISTS "${_libdir}/vrjuggler-3.0/plugins")
-			list(APPEND _plugin_dirs "${_libdir}/vrjuggler-3.0/plugins")
+		elseif(EXISTS "${_libdir}/vrjuggler-3.1/plugins")
+			list(APPEND _plugin_dirs "${_libdir}/vrjuggler-3.1/plugins")
 		endif()
 	endforeach()
 
@@ -440,7 +440,7 @@ function(get_vrjuggler_bundle_sources _target_sources)
 		get_filename_component(_bundledir "${_bundledir}" ABSOLUTE)
 
 		set(_vj_base_dir .)
-		set(_vj_data_dir ${vj_base_dir}/share/vrjuggler-3.0)
+		set(_vj_data_dir ${vj_base_dir}/share/vrjuggler-3.1)
 
 		# Append Mac-specific sources to source list
 		set(_vj_bundle_src
