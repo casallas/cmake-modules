@@ -1,4 +1,4 @@
-# - try to find VPR 2.2 library
+# - try to find VPR 2.3 library
 # Requires Boost 1.33.1 or greater (including filesystem and signals libraries)
 # (and thus FindBoost.cmake from 2.8rc3 or newer, preferably)
 # Requires NSPR4 (and PLC4) on Windows
@@ -6,20 +6,20 @@
 # Requires libuuid on Linux
 # Optionally uses Flagpoll and FindFlagpoll.cmake
 #
-# This library is a part of VR Juggler 3.0 - you probably want to use
-# find_package(VRJuggler30) instead, for an easy interface to this and
-# related scripts.  See FindVRJuggler30.cmake for more information.
+# This library is a part of VR Juggler 3.1 - you probably want to use
+# find_package(VRJuggler31) instead, for an easy interface to this and
+# related scripts.  See FindVRJuggler31.cmake for more information.
 #
-#  VPR22_LIBRARY_DIR, library search path
-#  VPR22_INCLUDE_DIR, include search path
-#  VPR22_LIBRARY, the library to link against
-#  VPR22_FOUND, If false, do not try to use this library.
+#  VPR23_LIBRARY_DIR, library search path
+#  VPR23_INCLUDE_DIR, include search path
+#  VPR23_LIBRARY, the library to link against
+#  VPR23_FOUND, If false, do not try to use this library.
 #
 # Plural versions refer to this library and its dependencies, and
 # are recommended to be used instead, unless you have a good reason.
 #
 # Useful configuration variables you might want to add to your cache:
-#  VPR22_ROOT_DIR - A directory prefix to search
+#  VPR23_ROOT_DIR - A directory prefix to search
 #                   (a path that contains include/ as a subdirectory)
 #
 # This script will use Flagpoll, if found, to provide hints to the location
@@ -38,11 +38,13 @@
 # Iowa State University HCI Graduate Program/VRAC
 # Updated for VR Juggler 3.0 by:
 # Brandon Newendorp <brandon@newendorp.com>
+# Updated for VR Juggler 3.1 by:
+# Juan Sebastian Casallas <casallas@iastate.edu>
 
-set(_HUMAN "VPR 2.2")
-set(_RELEASE_NAMES vpr-2_2 libvpr-2_2 vpr-2_2_0)
-set(_DEBUG_NAMES vpr_d-2_2 libvpr_d-2_2 vpr_d-2_2_0)
-set(_DIR vpr-2.2)
+set(_HUMAN "VPR 2.3")
+set(_RELEASE_NAMES vpr-2_3 libvpr-2_3 vpr-2_3_4)
+set(_DEBUG_NAMES vpr_d-2_3 libvpr_d-2_3 vpr_d-2_3_4)
+set(_DIR vpr-2.3)
 set(_HEADER vpr/vpr.h)
 set(_FP_PKG_NAME vpr)
 
@@ -51,7 +53,7 @@ include(CreateImportedTarget)
 include(CleanLibraryList)
 include(CleanDirectoryList)
 
-if(VPR22_FIND_QUIETLY)
+if(VPR23_FIND_QUIETLY)
 	set(_FIND_FLAGS "QUIET")
 else()
 	set(_FIND_FLAGS "")
@@ -66,21 +68,21 @@ if(FLAGPOLL)
 	flagpoll_get_extra_libs(${_FP_PKG_NAME} NO_DEPS)
 endif()
 
-set(VPR22_ROOT_DIR
-	"${VPR22_ROOT_DIR}"
+set(VPR23_ROOT_DIR
+	"${VPR23_ROOT_DIR}"
 	CACHE
 	PATH
 	"Root directory to search for VPR")
-if(DEFINED VRJUGGLER30_ROOT_DIR)
-	mark_as_advanced(VPR22_ROOT_DIR)
+if(DEFINED VRJUGGLER31_ROOT_DIR)
+	mark_as_advanced(VPR23_ROOT_DIR)
 endif()
-if(NOT VPR22_ROOT_DIR)
-	set(VPR22_ROOT_DIR "${VRJUGGLER30_ROOT_DIR}")
+if(NOT VPR23_ROOT_DIR)
+	set(VPR23_ROOT_DIR "${VRJUGGLER31_ROOT_DIR}")
 endif()
 
-set(_ROOT_DIR "${VPR22_ROOT_DIR}")
+set(_ROOT_DIR "${VPR23_ROOT_DIR}")
 
-find_path(VPR22_INCLUDE_DIR
+find_path(VPR23_INCLUDE_DIR
 	${_HEADER}
 	HINTS
 	"${_ROOT_DIR}"
@@ -92,7 +94,7 @@ find_path(VPR22_INCLUDE_DIR
 	DOC
 	"Path to ${_HUMAN} includes root")
 
-find_library(VPR22_LIBRARY_RELEASE
+find_library(VPR23_LIBRARY_RELEASE
 	NAMES
 	${_RELEASE_NAMES}
 	HINTS
@@ -103,7 +105,7 @@ find_library(VPR22_LIBRARY_RELEASE
 	DOC
 	"${_HUMAN} release library full path")
 
-find_library(VPR22_LIBRARY_DEBUG
+find_library(VPR23_LIBRARY_DEBUG
 	NAMES
 	${_DEBUG_NAMES}
 	HINTS
@@ -114,7 +116,7 @@ find_library(VPR22_LIBRARY_DEBUG
 	DOC
 	"${_HUMAN} debug library full path")
 
-select_library_configurations(VPR22)
+select_library_configurations(VPR23)
 
 # Dependencies
 set(_deps_libs)
@@ -131,12 +133,12 @@ if((NOT Boost_FOUND)
 	OR (NOT Boost_PROGRAM_OPTIONS_FOUND)
 	OR (NOT Boost_DATE_TIME_FOUND)
 	OR (NOT Boost_REGEX_FOUND))
-	if(VPR22_LIBRARY_RELEASE)
+	if(VPR23_LIBRARY_RELEASE)
 		# Find Boost in the same place as VPR
-		get_filename_component(VPR22_LIBRARY_DIR
-			${VPR22_LIBRARY_RELEASE}
+		get_filename_component(VPR23_LIBRARY_DIR
+			${VPR23_LIBRARY_RELEASE}
 			PATH)
-		set(BOOST_ROOT ${VPR22_LIBRARY_DIR}/../)
+		set(BOOST_ROOT ${VPR23_LIBRARY_DIR}/../)
 
 		find_package(Boost
 			1.40.0
@@ -191,37 +193,37 @@ if(UNIX AND NOT WIN32)
 	list(APPEND _deps_libs ${CMAKE_THREAD_LIBS_INIT})
 
 	if(NOT APPLE)
-		find_library(VPR22_libuuid_LIBRARY NAMES uuid)
-		mark_as_advanced(VPR22_libuuid_LIBRARY)
-		list(APPEND _deps_check VPR22_libuuid_LIBRARY)
-		list(APPEND _deps_libs ${VPR22_libuuid_LIBRARY})
+		find_library(VPR23_libuuid_LIBRARY NAMES uuid)
+		mark_as_advanced(VPR23_libuuid_LIBRARY)
+		list(APPEND _deps_check VPR23_libuuid_LIBRARY)
+		list(APPEND _deps_libs ${VPR23_libuuid_LIBRARY})
 	endif()
 endif()
 
 # handle the QUIETLY and REQUIRED arguments and set xxx_FOUND to TRUE if
 # all listed variables are TRUE
 include(FindPackageHandleStandardArgs)
-find_package_handle_standard_args(VPR22
+find_package_handle_standard_args(VPR23
 	DEFAULT_MSG
-	VPR22_LIBRARY
-	VPR22_INCLUDE_DIR
+	VPR23_LIBRARY
+	VPR23_INCLUDE_DIR
 	${_deps_check})
 
-if(VPR22_FOUND)
+if(VPR23_FOUND)
 
-	set(VPR22_INCLUDE_DIRS ${VPR22_INCLUDE_DIR} ${_deps_includes})
+	set(VPR23_INCLUDE_DIRS ${VPR23_INCLUDE_DIR} ${_deps_includes})
 
-	clean_directory_list(VPR22_INCLUDE_DIRS)
+	clean_directory_list(VPR23_INCLUDE_DIRS)
 
-	if(VRJUGGLER30_CREATE_IMPORTED_TARGETS)
-		create_imported_target(VPR22 ${_deps_libs})
+	if(VRJUGGLER31_CREATE_IMPORTED_TARGETS)
+		create_imported_target(VPR23 ${_deps_libs})
 	else()
-		clean_library_list(VPR22_LIBRARIES ${VPR22_LIBRARY} ${_deps_libs})
+		clean_library_list(VPR23_LIBRARIES ${VPR23_LIBRARY} ${_deps_libs})
 	endif()
 
-	mark_as_advanced(VPR22_ROOT_DIR)
+	mark_as_advanced(VPR23_ROOT_DIR)
 endif()
 
-mark_as_advanced(VPR22_LIBRARY_RELEASE
-	VPR22_LIBRARY_DEBUG
-	VPR22_INCLUDE_DIR)
+mark_as_advanced(VPR23_LIBRARY_RELEASE
+	VPR23_LIBRARY_DEBUG
+	VPR23_INCLUDE_DIR)

@@ -1,21 +1,21 @@
-# - try to find Sonix 1.4 library
-# Requires VPR 2.2 and GMTL (thus FindVPR22.cmake and FindGMTL.cmake)
+# - try to find Sonix 1.5 library
+# Requires VPR 2.3 and GMTL (thus FindVPR23.cmake and FindGMTL.cmake)
 # Optionally uses Flagpoll and FindFlagpoll.cmake
 #
-# This library is a part of VR Juggler 3.0 - you probably want to use
-# find_package(VRJuggler30) instead, for an easy interface to this and
-# related scripts.  See FindVRJuggler30.cmake for more information.
+# This library is a part of VR Juggler 3.1 - you probably want to use
+# find_package(VRJuggler3.1) instead, for an easy interface to this and
+# related scripts.  See FindVRJuggler31.cmake for more information.
 #
-#  SONIX14_LIBRARY_DIR, library search path
-#  SONIX14_INCLUDE_DIR, include search path
-#  SONIX14_LIBRARY, the library to link against
-#  SONIX14_FOUND, If false, do not try to use this library.
+#  SONIX15_LIBRARY_DIR, library search path
+#  SONIX15_INCLUDE_DIR, include search path
+#  SONIX15_LIBRARY, the library to link against
+#  SONIX15_FOUND, If false, do not try to use this library.
 #
 # Plural versions refer to this library and its dependencies, and
 # are recommended to be used instead, unless you have a good reason.
 #
 # Useful configuration variables you might want to add to your cache:
-#  SONIX14_ROOT_DIR - A directory prefix to search
+#  SONIX15_ROOT_DIR - A directory prefix to search
 #                     (a path that contains include/ as a subdirectory)
 #
 # This script will use Flagpoll, if found, to provide hints to the location
@@ -34,12 +34,14 @@
 # Iowa State University HCI Graduate Program/VRAC
 # Updated for VR Juggler 3.0 by:
 # Brandon Newendorp <brandon@newendorp.com>
+# Updated for VR Juggler 3.1 by:
+# Juan Sebastian Casallas <casallas@iastate.edu>
 
 
-set(_HUMAN "Sonix 1.4")
-set(_RELEASE_NAMES sonix-1_4 libsonix-1_4 sonix-1_4_0)
-set(_DEBUG_NAMES sonix_d-1_4 libsonix_d-1_4 sonix_d-1_4_0)
-set(_DIR sonix-1.4)
+set(_HUMAN "Sonix 1.5")
+set(_RELEASE_NAMES sonix-1_5 libsonix-1_5 sonix-1_5_1)
+set(_DEBUG_NAMES sonix_d-1_5 libsonix_d-1_5 sonix_d-1_5_1)
+set(_DIR sonix-1.5)
 set(_HEADER snx/sonix.h)
 set(_FP_PKG_NAME sonix)
 
@@ -48,7 +50,7 @@ include(CreateImportedTarget)
 include(CleanLibraryList)
 include(CleanDirectoryList)
 
-if(SONIX14_FIND_QUIETLY)
+if(SONIX15_FIND_QUIETLY)
 	set(_FIND_FLAGS "QUIET")
 else()
 	set(_FIND_FLAGS "")
@@ -62,21 +64,21 @@ if(FLAGPOLL)
 	flagpoll_get_library_dirs(${_FP_PKG_NAME} NO_DEPS)
 endif()
 
-set(SONIX14_ROOT_DIR
-	"${SONIX14_ROOT_DIR}"
+set(SONIX15_ROOT_DIR
+	"${SONIX15_ROOT_DIR}"
 	CACHE
 	PATH
 	"Root directory to search for Sonix")
-if(DEFINED VRJUGGLER30_ROOT_DIR)
-	mark_as_advanced(SONIX14_ROOT_DIR)
+if(DEFINED VRJUGGLER31_ROOT_DIR)
+	mark_as_advanced(SONIX15_ROOT_DIR)
 endif()
-if(NOT SONIX14_ROOT_DIR)
-	set(SONIX14_ROOT_DIR "${VRJUGGLER30_ROOT_DIR}")
+if(NOT SONIX15_ROOT_DIR)
+	set(SONIX15_ROOT_DIR "${VRJUGGLER31_ROOT_DIR}")
 endif()
 
-set(_ROOT_DIR "${SONIX14_ROOT_DIR}")
+set(_ROOT_DIR "${SONIX15_ROOT_DIR}")
 
-find_path(SONIX14_INCLUDE_DIR
+find_path(SONIX15_INCLUDE_DIR
 	${_HEADER}
 	HINTS
 	"${_ROOT_DIR}"
@@ -88,7 +90,7 @@ find_path(SONIX14_INCLUDE_DIR
 	DOC
 	"Path to ${_HUMAN} includes root")
 
-find_library(SONIX14_LIBRARY_RELEASE
+find_library(SONIX15_LIBRARY_RELEASE
 	NAMES
 	${_RELEASE_NAMES}
 	HINTS
@@ -99,7 +101,7 @@ find_library(SONIX14_LIBRARY_RELEASE
 	DOC
 	"${_HUMAN} release library full path")
 
-find_library(SONIX14_LIBRARY_DEBUG
+find_library(SONIX15_LIBRARY_DEBUG
 	NAMES
 	${_DEBUG_NAMES}
 	HINTS
@@ -110,11 +112,11 @@ find_library(SONIX14_LIBRARY_DEBUG
 	DOC
 	"${_HUMAN} debug library full path")
 
-select_library_configurations(SONIX14)
+select_library_configurations(SONIX15)
 
 # Dependencies
-if(NOT VPR22_FOUND)
-	find_package(VPR22 ${_FIND_FLAGS})
+if(NOT VPR23_FOUND)
+	find_package(VPR23 ${_FIND_FLAGS})
 endif()
 
 if(NOT GMTL_FOUND)
@@ -124,36 +126,36 @@ endif()
 # handle the QUIETLY and REQUIRED arguments and set xxx_FOUND to TRUE if
 # all listed variables are TRUE
 include(FindPackageHandleStandardArgs)
-find_package_handle_standard_args(SONIX14
+find_package_handle_standard_args(SONIX15
 	DEFAULT_MSG
-	SONIX14_LIBRARY
-	SONIX14_INCLUDE_DIR
-	VPR22_FOUND
-	VPR22_LIBRARIES
-	VPR22_INCLUDE_DIR
+	SONIX15_LIBRARY
+	SONIX15_INCLUDE_DIR
+	VPR23_FOUND
+	VPR23_LIBRARIES
+	VPR23_INCLUDE_DIR
 	GMTL_FOUND
 	GMTL_INCLUDE_DIR)
 
-if(SONIX14_FOUND)
-	set(_DEPS ${VPR22_LIBRARIES})
+if(SONIX15_FOUND)
+	set(_DEPS ${VPR23_LIBRARIES})
 
-	set(SONIX14_INCLUDE_DIRS ${SONIX14_INCLUDE_DIR})
+	set(SONIX15_INCLUDE_DIRS ${SONIX15_INCLUDE_DIR})
 	list(APPEND
-		SONIX14_INCLUDE_DIRS
-		${VPR22_INCLUDE_DIRS}
+		SONIX15_INCLUDE_DIRS
+		${VPR23_INCLUDE_DIRS}
 		${GMTL_INCLUDE_DIRS})
 
-	clean_directory_list(SONIX14_INCLUDE_DIRS)
+	clean_directory_list(SONIX15_INCLUDE_DIRS)
 
-	if(VRJUGGLER30_CREATE_IMPORTED_TARGETS)
-		create_imported_target(SONIX14 ${_DEPS})
+	if(VRJUGGLER31_CREATE_IMPORTED_TARGETS)
+		create_imported_target(SONIX15 ${_DEPS})
 	else()
-		clean_library_list(SONIX14_LIBRARIES ${_DEPS})
+		clean_library_list(SONIX15_LIBRARIES ${_DEPS})
 	endif()
 
-	mark_as_advanced(SONIX14_ROOT_DIR)
+	mark_as_advanced(SONIX15_ROOT_DIR)
 endif()
 
-mark_as_advanced(SONIX14_LIBRARY_RELEASE
-	SONIX14_LIBRARY_DEBUG
-	SONIX14_INCLUDE_DIR)
+mark_as_advanced(SONIX15_LIBRARY_RELEASE
+	SONIX15_LIBRARY_DEBUG
+	SONIX15_INCLUDE_DIR)

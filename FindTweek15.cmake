@@ -1,21 +1,21 @@
-# - try to find Tweek 1.4 library
-# Requires VPR 2.2 (thus FindVPR22.cmake)
+# - try to find Tweek 1.5 library
+# Requires VPR 2.3 (thus FindVPR23.cmake)
 # Optionally uses Flagpoll and FindFlagpoll.cmake
 #
-# This library is a part of VR Juggler 3.0 - you probably want to use
-# find_package(VRJuggler30) instead, for an easy interface to this and
-# related scripts.  See FindVRJuggler30.cmake for more information.
+# This library is a part of VR Juggler 3.1 - you probably want to use
+# find_package(VRJuggler31) instead, for an easy interface to this and
+# related scripts.  See FindVRJuggler31.cmake for more information.
 #
-#  TWEEK14_LIBRARY_DIR, library search path
-#  TWEEK14_INCLUDE_DIR, include search path
-#  TWEEK14_LIBRARY, the library to link against
-#  TWEEK14_FOUND, If false, do not try to use this library.
+#  TWEEK15_LIBRARY_DIR, library search path
+#  TWEEK15_INCLUDE_DIR, include search path
+#  TWEEK15_LIBRARY, the library to link against
+#  TWEEK15_FOUND, If false, do not try to use this library.
 #
 # Plural versions refer to this library and its dependencies, and
 # are recommended to be used instead, unless you have a good reason.
 #
 # Useful configuration variables you might want to add to your cache:
-#  TWEEK14_ROOT_DIR - A directory prefix to search
+#  TWEEK15_ROOT_DIR - A directory prefix to search
 #                     (a path that contains include/ as a subdirectory)
 #
 # This script will use Flagpoll, if found, to provide hints to the location
@@ -34,12 +34,14 @@
 # Iowa State University HCI Graduate Program/VRAC
 # Updated for VR Juggler 3.0 by:
 # Brandon Newendorp <brandon@newendorp.com>
+# Updated for VR Juggler 3.1 by:
+# Juan Sebastian Casallas <casallas@iastate.edu>
 
 
-set(_HUMAN "Tweek 1.4")
-set(_RELEASE_NAMES tweek-1_4 libtweek-1_4 tweek-1_4_0)
-set(_DEBUG_NAMES tweek_d-1_4 libtweek_d-1_4 tweek_d-1_4_0)
-set(_DIR tweek-1.4)
+set(_HUMAN "Tweek 1.5")
+set(_RELEASE_NAMES tweek-1_5 libtweek-1_5 tweek-1_5_1)
+set(_DEBUG_NAMES tweek_d-1_5 libtweek_d-1_5 tweek_d-1_5_1)
+set(_DIR tweek-1.5)
 set(_HEADER tweek/tweek.h)
 set(_FP_PKG_NAME tweek)
 
@@ -48,7 +50,7 @@ include(CreateImportedTarget)
 include(CleanLibraryList)
 include(CleanDirectoryList)
 
-if(TWEEK14_FIND_QUIETLY)
+if(TWEEK15_FIND_QUIETLY)
 	set(_FIND_FLAGS "QUIET")
 else()
 	set(_FIND_FLAGS "")
@@ -62,21 +64,21 @@ if(FLAGPOLL)
 	flagpoll_get_library_dirs(${_FP_PKG_NAME} NO_DEPS)
 endif()
 
-set(TWEEK14_ROOT_DIR
-	"${TWEEK14_ROOT_DIR}"
+set(TWEEK15_ROOT_DIR
+	"${TWEEK15_ROOT_DIR}"
 	CACHE
 	PATH
 	"Root directory to search for Tweek")
-if(DEFINED VRJUGGLER30_ROOT_DIR)
-	mark_as_advanced(TWEEK14_ROOT_DIR)
+if(DEFINED VRJUGGLER31_ROOT_DIR)
+	mark_as_advanced(TWEEK15_ROOT_DIR)
 endif()
-if(NOT TWEEK14_ROOT_DIR)
-	set(TWEEK14_ROOT_DIR "${VRJUGGLER30_ROOT_DIR}")
+if(NOT TWEEK15_ROOT_DIR)
+	set(TWEEK15_ROOT_DIR "${VRJUGGLER31_ROOT_DIR}")
 endif()
 
-set(_ROOT_DIR "${TWEEK14_ROOT_DIR}")
+set(_ROOT_DIR "${TWEEK15_ROOT_DIR}")
 
-find_path(TWEEK14_INCLUDE_DIR
+find_path(TWEEK15_INCLUDE_DIR
 	${_HEADER}
 	HINTS
 	"${_ROOT_DIR}"
@@ -88,7 +90,7 @@ find_path(TWEEK14_INCLUDE_DIR
 	DOC
 	"Path to ${_HUMAN} includes root")
 
-find_library(TWEEK14_LIBRARY_RELEASE
+find_library(TWEEK15_LIBRARY_RELEASE
 	NAMES
 	${_RELEASE_NAMES}
 	HINTS
@@ -99,7 +101,7 @@ find_library(TWEEK14_LIBRARY_RELEASE
 	DOC
 	"${_HUMAN} release library full path")
 
-find_library(TWEEK14_LIBRARY_DEBUG
+find_library(TWEEK15_LIBRARY_DEBUG
 	NAMES
 	${_DEBUG_NAMES}
 	HINTS
@@ -110,41 +112,41 @@ find_library(TWEEK14_LIBRARY_DEBUG
 	DOC
 	"${_HUMAN} debug library full path")
 
-select_library_configurations(TWEEK14)
+select_library_configurations(TWEEK15)
 
 # Dependency
-if(NOT VPR22_FOUND)
-	find_package(VPR22 ${_FIND_FLAGS})
+if(NOT VPR23_FOUND)
+	find_package(VPR23 ${_FIND_FLAGS})
 endif()
 
 # handle the QUIETLY and REQUIRED arguments and set xxx_FOUND to TRUE if
 # all listed variables are TRUE
 include(FindPackageHandleStandardArgs)
-find_package_handle_standard_args(TWEEK14
+find_package_handle_standard_args(TWEEK15
 	DEFAULT_MSG
-	TWEEK14_LIBRARY
-	TWEEK14_INCLUDE_DIR
-	VPR22_FOUND
-	VPR22_LIBRARIES
-	VPR22_INCLUDE_DIR)
+	TWEEK15_LIBRARY
+	TWEEK15_INCLUDE_DIR
+	VPR23_FOUND
+	VPR23_LIBRARIES
+	VPR23_INCLUDE_DIR)
 
-if(TWEEK14_FOUND)
-	set(_DEPS ${VPR22_LIBRARIES})
+if(TWEEK15_FOUND)
+	set(_DEPS ${VPR23_LIBRARIES})
 
-	set(TWEEK14_INCLUDE_DIRS ${TWEEK14_INCLUDE_DIR})
-	list(APPEND TWEEK14_INCLUDE_DIRS ${VPR22_INCLUDE_DIRS})
+	set(TWEEK15_INCLUDE_DIRS ${TWEEK15_INCLUDE_DIR})
+	list(APPEND TWEEK15_INCLUDE_DIRS ${VPR23_INCLUDE_DIRS})
 
-	clean_directory_list(TWEEK14_INCLUDE_DIRS)
+	clean_directory_list(TWEEK15_INCLUDE_DIRS)
 
-	if(VRJUGGLER30_CREATE_IMPORTED_TARGETS)
-		create_imported_target(TWEEK14 ${_DEPS})
+	if(VRJUGGLER31_CREATE_IMPORTED_TARGETS)
+		create_imported_target(TWEEK15 ${_DEPS})
 	else()
-		clean_library_list(TWEEK14_LIBRARIES ${_DEPS})
+		clean_library_list(TWEEK15_LIBRARIES ${_DEPS})
 	endif()
 
-	mark_as_advanced(TWEEK14_ROOT_DIR)
+	mark_as_advanced(TWEEK15_ROOT_DIR)
 endif()
 
-mark_as_advanced(TWEEK14_LIBRARY_RELEASE
-	TWEEK14_LIBRARY_DEBUG
-	TWEEK14_INCLUDE_DIR)
+mark_as_advanced(TWEEK15_LIBRARY_RELEASE
+	TWEEK15_LIBRARY_DEBUG
+	TWEEK15_INCLUDE_DIR)

@@ -1,11 +1,11 @@
 # - try to find VRJuggler 3.0 OpenGL library
-# Requires VRJ core 3.0 (thus FindVRJ30.cmake)
+# Requires VRJ core 3.1 (thus FindVRJ31.cmake)
 # Requires OpenGL.
 # Optionally uses Flagpoll and FindFlagpoll.cmake
 #
-# This library is a part of VR Juggler 3.0 - you probably want to use
-# find_package(VRJuggler30) instead, for an easy interface to this and
-# related scripts.  See FindVRJuggler30.cmake for more information.
+# This library is a part of VR Juggler 3.1 - you probably want to use
+# find_package(VRJuggler31) instead, for an easy interface to this and
+# related scripts.  See FindVRJuggler31.cmake for more information.
 #
 #  VRJOGL30_LIBRARY_DIR, library search path
 #  VRJOGL30_INCLUDE_DIRS, include search path for dependencies
@@ -30,17 +30,19 @@
 # and trigger an automatic re-run.
 #
 # Original Author:
-# 2009-2010 Ryan Pavlik <rpavlik@iastate.edu> <abiryan@ryand.net>
+# 2009-2012 Ryan Pavlik <rpavlik@iastate.edu> <abiryan@ryand.net>
 # http://academic.cleardefinition.com
 # Iowa State University HCI Graduate Program/VRAC
 # Updated for VR Juggler 3.0 by:
 # Brandon Newendorp <brandon@newendorp.com>
+# Updated for VR Juggler 3.1 by:
+# Juan Sebastian Casallas <casallas@iastate.edu>
 
 
-set(_HUMAN "VR Juggler 3.0 OpenGL Core")
-set(_RELEASE_NAMES vrj_ogl-3_0 libvrj_ogl-3_0 vrj_ogl-3_0_0)
-set(_DEBUG_NAMES vrj_ogl_d-3_0 libvrj_ogl_d-3_0 vrj_ogl_d-3_0_0)
-set(_DIR vrjuggler-3.0)
+set(_HUMAN "VR Juggler 3.1 OpenGL Core")
+set(_RELEASE_NAMES vrj_ogl-3_1 libvrj_ogl-3_1 vrj_ogl-3_1_6)
+set(_DEBUG_NAMES vrj_ogl_d-3_1 libvrj_ogl_d-3_1 vrj_ogl_d-3_1_6)
+set(_DIR vrjuggler-3.1)
 set(_FP_PKG_NAME vrjuggler-opengl)
 
 include(SelectLibraryConfigurations)
@@ -48,7 +50,7 @@ include(CreateImportedTarget)
 include(CleanLibraryList)
 include(CleanDirectoryList)
 
-if(VRJOGL30_FIND_QUIETLY)
+if(VRJOGL31_FIND_QUIETLY)
 	set(_FIND_FLAGS "QUIET")
 else()
 	set(_FIND_FLAGS "")
@@ -67,16 +69,16 @@ set(VRJOGL30_ROOT_DIR
 	CACHE
 	PATH
 	"Root directory to search for VRJOGL")
-if(DEFINED VRJUGGLER30_ROOT_DIR)
-	mark_as_advanced(VRJOGL30_ROOT_DIR)
+if(DEFINED VRJUGGLER31_ROOT_DIR)
+	mark_as_advanced(VRJOGL31_ROOT_DIR)
 endif()
-if(NOT VRJOGL30_ROOT_DIR)
-	set(VRJOGL30_ROOT_DIR "${VRJUGGLER30_ROOT_DIR}")
+if(NOT VRJOGL31_ROOT_DIR)
+	set(VRJOGL31_ROOT_DIR "${VRJUGGLER31_ROOT_DIR}")
 endif()
 
-set(_ROOT_DIR "${VRJOGL30_ROOT_DIR}")
+set(_ROOT_DIR "${VRJOGL31_ROOT_DIR}")
 
-find_library(VRJOGL30_LIBRARY_RELEASE
+find_library(VRJOGL31_LIBRARY_RELEASE
 	NAMES
 	${_RELEASE_NAMES}
 	HINTS
@@ -87,7 +89,7 @@ find_library(VRJOGL30_LIBRARY_RELEASE
 	DOC
 	"${_HUMAN} release library full path")
 
-find_library(VRJOGL30_LIBRARY_DEBUG
+find_library(VRJOGL31_LIBRARY_DEBUG
 	NAMES
 	${_DEBUG_NAMES}
 	HINTS
@@ -98,7 +100,7 @@ find_library(VRJOGL30_LIBRARY_DEBUG
 	DOC
 	"${_HUMAN} debug library full path")
 
-select_library_configurations(VRJOGL30)
+select_library_configurations(VRJOGL31)
 
 # Dependency
 if(NOT VRJ30_FOUND)

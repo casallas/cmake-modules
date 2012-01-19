@@ -1,22 +1,22 @@
-# - try to find Gadgeteer 2.0 library
-# Requires JCCL 1.4 and VPR 2.2 (thus FindJCCL14.cmake and FindVPR22.cmake)
+# - try to find Gadgeteer 2.1 library
+# Requires JCCL 1.5 and VPR 2.3 (thus FindJCCL15.cmake and FindVPR23.cmake)
 # Requires X11 if not on Mac or Windows.
 # Optionally uses Flagpoll and FindFlagpoll.cmake
 #
-# This library is a part of VR Juggler 3.0 - you probably want to use
-# find_package(VRJuggler30) instead, for an easy interface to this and
-# related scripts.  See FindVRJuggler30.cmake for more information.
+# This library is a part of VR Juggler 3.1 - you probably want to use
+# find_package(VRJuggler31) instead, for an easy interface to this and
+# related scripts.  See FindVRJuggler31.cmake for more information.
 #
-#  GADGETEER20_LIBRARY_DIR, library search path
-#  GADGETEER20_INCLUDE_DIR, include search path
-#  GADGETEER20_LIBRARY, the library to link against
-#  GADGETEER20_FOUND, If false, do not try to use this library.
+#  GADGETEER21_LIBRARY_DIR, library search path
+#  GADGETEER21_INCLUDE_DIR, include search path
+#  GADGETEER21_LIBRARY, the library to link against
+#  GADGETEER21_FOUND, If false, do not try to use this library.
 #
 # Plural versions refer to this library and its dependencies, and
 # are recommended to be used instead, unless you have a good reason.
 #
 # Useful configuration variables you might want to add to your cache:
-#  GADGETEER20_ROOT_DIR - A directory prefix to search
+#  GADGETEER21_ROOT_DIR - A directory prefix to search
 #                         (a path that contains include/ as a subdirectory)
 #
 # This script will use Flagpoll, if found, to provide hints to the location
@@ -30,16 +30,18 @@
 # and trigger an automatic re-run.
 #
 # Original Author:
-# 2009-2010 Ryan Pavlik <rpavlik@iastate.edu> <abiryan@ryand.net>
+# 2009-2012 Ryan Pavlik <rpavlik@iastate.edu> <abiryan@ryand.net>
 # http://academic.cleardefinition.com
 # Iowa State University HCI Graduate Program/VRAC
 # Updated for VR Juggler 3.0 by:
 # Brandon Newendorp <brandon@newendorp.com>
+# Updated for VR Juggler 3.1 by:
+# Juan Sebastian Casallas <casallas@iastate.edu>
 
-set(_HUMAN "Gadgeteer 2.0")
-set(_RELEASE_NAMES gadget-2_0 libgadget-2_0 gadget-2_0_0)
-set(_DEBUG_NAMES gadget_d-2_0 libgadget_d-2_0 gadget_d-2_0_0)
-set(_DIR gadgeteer-2.0)
+set(_HUMAN "Gadgeteer 2.1")
+set(_RELEASE_NAMES gadget-2_1 libgadget-2_1 gadget-2_1_27)
+set(_DEBUG_NAMES gadget_d-2_1 libgadget_d-2_1 gadget_d-2_1_27)
+set(_DIR gadgeteer-2.1)
 set(_HEADER gadget/gadgetConfig.h)
 set(_FP_PKG_NAME gadgeteer)
 
@@ -48,7 +50,7 @@ include(CreateImportedTarget)
 include(CleanLibraryList)
 include(CleanDirectoryList)
 
-if(GADGETEER20_FIND_QUIETLY)
+if(GADGETEER21_FIND_QUIETLY)
 	set(_FIND_FLAGS "QUIET")
 else()
 	set(_FIND_FLAGS "")
@@ -63,21 +65,21 @@ if(FLAGPOLL)
 	flagpoll_get_extra_libs(${_FP_PKG_NAME} NO_DEPS)
 endif()
 
-set(GADGETEER20_ROOT_DIR
-	"${GADGETEER20_ROOT_DIR}"
+set(GADGETEER21_ROOT_DIR
+	"${GADGETEER21_ROOT_DIR}"
 	CACHE
 	PATH
 	"Root directory to search for Gadgeteer")
 if(DEFINED VRJUGGLER30_ROOT_DIR)
 	mark_as_advanced(GADGETEER20_ROOT_DIR)
 endif()
-if(NOT GADGETEER20_ROOT_DIR)
-	set(GADGETEER20_ROOT_DIR "${VRJUGGLER30_ROOT_DIR}")
+if(NOT GADGETEER21_ROOT_DIR)
+	set(GADGETEER21_ROOT_DIR "${VRJUGGLER30_ROOT_DIR}")
 endif()
 
-set(_ROOT_DIR "${GADGETEER20_ROOT_DIR}")
+set(_ROOT_DIR "${GADGETEER21_ROOT_DIR}")
 
-find_path(GADGETEER20_INCLUDE_DIR
+find_path(GADGETEER21_INCLUDE_DIR
 	${_HEADER}
 	HINTS
 	"${_ROOT_DIR}"
@@ -89,7 +91,7 @@ find_path(GADGETEER20_INCLUDE_DIR
 	DOC
 	"Path to ${_HUMAN} includes root")
 
-find_library(GADGETEER20_LIBRARY_RELEASE
+find_library(GADGETEER21_LIBRARY_RELEASE
 	NAMES
 	${_RELEASE_NAMES}
 	HINTS
@@ -100,7 +102,7 @@ find_library(GADGETEER20_LIBRARY_RELEASE
 	DOC
 	"${_HUMAN} release library full path")
 
-find_library(GADGETEER20_LIBRARY_DEBUG
+find_library(GADGETEER21_LIBRARY_DEBUG
 	NAMES
 	${_DEBUG_NAMES}
 	HINTS
@@ -111,10 +113,10 @@ find_library(GADGETEER20_LIBRARY_DEBUG
 	DOC
 	"${_HUMAN} debug library full path")
 
-select_library_configurations(GADGETEER20)
+select_library_configurations(GADGETEER21)
 
 # Dependencies
-foreach(package JCCL14 VPR22 GMTL)
+foreach(package JCCL15 VPR23 GMTL)
 	if(NOT ${PACKAGE}_FOUND)
 		find_package(${package} ${_FIND_FLAGS})
 	endif()
@@ -137,47 +139,47 @@ endif()
 # handle the QUIETLY and REQUIRED arguments and set xxx_FOUND to TRUE if
 # all listed variables are TRUE
 include(FindPackageHandleStandardArgs)
-find_package_handle_standard_args(GADGETEER20
+find_package_handle_standard_args(GADGETEER21
 	DEFAULT_MSG
-	GADGETEER20_LIBRARY
-	GADGETEER20_INCLUDE_DIR
-	JCCL14_FOUND
-	JCCL14_LIBRARIES
-	JCCL14_INCLUDE_DIR
-	VPR22_FOUND
-	VPR22_LIBRARIES
-	VPR22_INCLUDE_DIR
+	GADGETEER21_LIBRARY
+	GADGETEER21_INCLUDE_DIR
+	JCCL15_FOUND
+	JCCL15_LIBRARIES
+	JCCL15_INCLUDE_DIR
+	VPR23_FOUND
+	VPR23_LIBRARIES
+	VPR23_INCLUDE_DIR
 	GMTL_FOUND
 	GMTL_INCLUDE_DIR
 	${_CHECK_EXTRAS})
 
-if(GADGETEER20_FOUND)
-	set(_DEPS ${JCCL14_LIBRARIES} ${VPR22_LIBRARIES})
+if(GADGETEER21_FOUND)
+	set(_DEPS ${JCCL15_LIBRARIES} ${VPR23_LIBRARIES})
 
-	set(GADGETEER20_INCLUDE_DIRS ${GADGETEER20_INCLUDE_DIR})
+	set(GADGETEER21_INCLUDE_DIRS ${GADGETEER21_INCLUDE_DIR})
 	list(APPEND
-		GADGETEER20_INCLUDE_DIRS
-		${JCCL14_INCLUDE_DIRS}
-		${VPR22_INCLUDE_DIRS}
+		GADGETEER21_INCLUDE_DIRS
+		${JCCL15_INCLUDE_DIRS}
+		${VPR23_INCLUDE_DIRS}
 		${GMTL_INCLUDE_DIRS})
 
 	if(UNIX AND NOT APPLE AND NOT WIN32)
 		# We need X11 if not on Mac or Windows
 		list(APPEND _DEPS ${X11_X11_LIB} ${X11_ICE_LIB} ${X11_SM_LIB})
-		list(APPEND GADGETEER20_INCLUDE_DIRS ${X11_INCLUDE_DIR})
+		list(APPEND GADGETEER21_INCLUDE_DIRS ${X11_INCLUDE_DIR})
 	endif()
 
-	clean_directory_list(GADGETEER20_INCLUDE_DIRS)
+	clean_directory_list(GADGETEER21_INCLUDE_DIRS)
 
 	if(VRJUGGLER30_CREATE_IMPORTED_TARGETS)
-		create_imported_target(GADGETEER20 ${_DEPS})
+		create_imported_target(GADGETEER21 ${_DEPS})
 	else()
-		clean_library_list(GADGETEER20_LIBRARIES ${_DEPS})
+		clean_library_list(GADGETEER21_LIBRARIES ${_DEPS})
 	endif()
 
-	mark_as_advanced(GADGETEER20_ROOT_DIR)
+	mark_as_advanced(GADGETEER21_ROOT_DIR)
 endif()
 
-mark_as_advanced(GADGETEER20_LIBRARY_RELEASE
-	GADGETEER20_LIBRARY_DEBUG
-	GADGETEER20_INCLUDE_DIR)
+mark_as_advanced(GADGETEER21_LIBRARY_RELEASE
+	GADGETEER21_LIBRARY_DEBUG
+	GADGETEER21_INCLUDE_DIR)
