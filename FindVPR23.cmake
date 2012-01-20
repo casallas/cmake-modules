@@ -42,9 +42,9 @@
 # Juan Sebastian Casallas <casallas@iastate.edu>
 
 set(_HUMAN "VPR 2.3")
-set(_RELEASE_NAMES vpr-2_3 libvpr-2_3 vpr-2_3_4)
-set(_DEBUG_NAMES vpr_d-2_3 libvpr_d-2_3 vpr_d-2_3_4)
-set(_DIR vpr-2.3)
+set(_RELEASE_NAMES vpr-2_3 libvpr-2_3_4 vpr-2_3_4)
+set(_DEBUG_NAMES vpr_d-2_3 libvpr_d-2_3_4 vpr_d-2_3_4)
+set(_DIR vpr-2.3.4)
 set(_HEADER vpr/vpr.h)
 set(_FP_PKG_NAME vpr)
 

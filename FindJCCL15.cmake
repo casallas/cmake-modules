@@ -39,9 +39,9 @@
 
 
 set(_HUMAN "JCCL 1.5")
-set(_RELEASE_NAMES jccl-1_5 libjccl-1_5 jccl-1_5_1)
-set(_DEBUG_NAMES jccl_d-1_5 libjccl_d-1_5 jccl_d-1_5_1)
-set(_DIR jccl-1.5)
+set(_RELEASE_NAMES jccl-1_5 libjccl-1_5_1 jccl-1_5_1)
+set(_DEBUG_NAMES jccl_d-1_5 libjccl_d-1_5_1 jccl_d-1_5_1)
+set(_DIR jccl-1.5.1)
 set(_HEADER jccl/jcclConfig.h)
 set(_FP_PKG_NAME jccl)
 

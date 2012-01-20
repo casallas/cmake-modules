@@ -39,9 +39,9 @@
 
 
 set(_HUMAN "Sonix 1.5")
-set(_RELEASE_NAMES sonix-1_5 libsonix-1_5 sonix-1_5_1)
-set(_DEBUG_NAMES sonix_d-1_5 libsonix_d-1_5 sonix_d-1_5_1)
-set(_DIR sonix-1.5)
+set(_RELEASE_NAMES sonix-1_5 libsonix-1_5_1 sonix-1_5_1)
+set(_DEBUG_NAMES sonix_d-1_5 libsonix_d-1_5_1 sonix_d-1_5_1)
+set(_DIR sonix-1.5.1)
 set(_HEADER snx/sonix.h)
 set(_FP_PKG_NAME sonix)
 

@@ -39,9 +39,9 @@
 # Juan Sebastian Casallas <casallas@iastate.edu>
 
 set(_HUMAN "Gadgeteer 2.1")
-set(_RELEASE_NAMES gadget-2_1 libgadget-2_1 gadget-2_1_27)
-set(_DEBUG_NAMES gadget_d-2_1 libgadget_d-2_1 gadget_d-2_1_27)
-set(_DIR gadgeteer-2.1)
+set(_RELEASE_NAMES gadget-2_1 libgadget-2_1_27 gadget-2_1_27)
+set(_DEBUG_NAMES gadget_d-2_1 libgadget_d-2_1_27 gadget_d-2_1_27)
+set(_DIR gadgeteer-2.1.27)
 set(_HEADER gadget/gadgetConfig.h)
 set(_FP_PKG_NAME gadgeteer)
 
