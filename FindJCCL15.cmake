@@ -1,5 +1,5 @@
 # - try to find JCCL 1.5 library
-# Requires VPR 2.2 (thus FindVPR22.cmake)
+# Requires VPR 2.3 (thus FindVPR23.cmake)
 # Optionally uses Flagpoll and FindFlagpoll.cmake
 #
 # This library is a part of VR Juggler 3.1 - you probably want to use
@@ -115,8 +115,8 @@ find_library(JCCL15_LIBRARY_DEBUG
 select_library_configurations(JCCL15)
 
 # Dependency
-if(NOT VPR22_FOUND)
-	find_package(VPR22 ${_FIND_FLAGS})
+if(NOT VPR23_FOUND)
+	find_package(VPR23 ${_FIND_FLAGS})
 endif()
 
 # handle the QUIETLY and REQUIRED arguments and set xxx_FOUND to TRUE if
@@ -126,15 +126,15 @@ find_package_handle_standard_args(JCCL15
 	DEFAULT_MSG
 	JCCL15_LIBRARY
 	JCCL15_INCLUDE_DIR
-	VPR22_FOUND
-	VPR22_LIBRARIES
-	VPR22_INCLUDE_DIR)
+	VPR23_FOUND
+	VPR23_LIBRARIES
+	VPR23_INCLUDE_DIR)
 
 if(JCCL15_FOUND)
-	set(_DEPS ${VPR22_LIBRARIES})
+	set(_DEPS ${VPR23_LIBRARIES})
 
 	set(JCCL15_INCLUDE_DIRS ${JCCL15_INCLUDE_DIR})
-	list(APPEND JCCL15_INCLUDE_DIRS ${VPR22_INCLUDE_DIRS})
+	list(APPEND JCCL15_INCLUDE_DIRS ${VPR23_INCLUDE_DIRS})
 	clean_directory_list(JCCL15_INCLUDE_DIRS)
 
 	if(VRJUGGLER31_CREATE_IMPORTED_TARGETS)
